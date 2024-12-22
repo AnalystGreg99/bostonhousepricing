@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boston Price Prediction</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Welcome to the Boston Price Prediction API</h1>
+        <p>This API allows you to predict house prices in Boston based on various features.</p>
+        <h2>How to Use</h2>
+        <p>Send a POST request to the <code>/predict</code> endpoint with the required features in JSON format.</p>
+        <h3>Example Request</h3>
+        <pre>
+{
+    "CRIM": 0.00632,
+    "ZN": 18.0,
+    "INDUS": 2.31,
+    "CHAS": 0.0,
+    "NOX": 0.538,
+    "RM": 6.575,
+    "AGE": 65.2,
+    "DIS": 4.0902,
+    "RAD": 1.0,
+    "TAX": 296.0,
+    "PTRATIO": 15.3,
+    "B": 396.9,
+    "LSTAT": 4.98
+}
+        </pre>
+        <h3>Example Response</h3>
+        <pre>
+{
+    "prediction": 24.0
+}
+        </pre>
+    </div>
+</body>
+</html>
