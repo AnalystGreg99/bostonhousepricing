@@ -3,39 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boston Price Prediction</title>
+    <title>Boston Price Prediction - Predict</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 50px;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        .prediction-result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1 class="mt-5">Welcome to the Boston Price Prediction API</h1>
-        <p>This API allows you to predict house prices in Boston based on various features.</p>
-        <h2>How to Use</h2>
-        <p>Send a POST request to the <code>/predict</code> endpoint with the required features in JSON format.</p>
-        <h3>Example Request</h3>
-        <pre>
-{
-    "CRIM": 0.00632,
-    "ZN": 18.0,
-    "INDUS": 2.31,
-    "CHAS": 0.0,
-    "NOX": 0.538,
-    "RM": 6.575,
-    "AGE": 65.2,
-    "DIS": 4.0902,
-    "RAD": 1.0,
-    "TAX": 296.0,
-    "PTRATIO": 15.3,
-    "B": 396.9,
-    "LSTAT": 4.98
-}
-        </pre>
-        <h3>Example Response</h3>
-        <pre>
-{
-    "prediction": 24.0
-}
-        </pre>
+        <h1>Boston House Price Prediction</h1>
+        <h2>Input Features</h2>
+        <form action="{{ url_for('predict') }}" method="post">
+            <div class="form-group">
+                <label for="CRIM">CRIM (per capita crime rate by town):</label>
+                <input type="text" class="form-control" name="CRIM" required>
+            </div>
+            <div class="form-group">
+                <label for="ZN">ZN (proportion of residential land zoned for lots over 25,000 sq.ft.):</label>
+                <input type="text" class="form-control" name="ZN" required>
+            </div>
+            <div class="form-group">
+                <label for="INDUS">INDUS (proportion of non-retail business acres per town):</label>
+                <input type="text" class="form-control" name="INDUS" required>
+            </div>
+            <div class="form-group">
+                <label for="CHAS">CHAS (Charles River dummy variable):</label>
+                <input type="text" class="form-control" name="CHAS" required>
+            </div>
+            <div class="form-group">
+                <label for="NOX">NOX (nitric oxides concentration):</label>
+                <input type="text" class="form-control" name="NOX" required>
+            </div>
+            <div class="form-group">
+                <label for="RM">RM (average number of rooms per dwelling):</label>
+                <input type="text" class="form-control" name="RM" required>
+            </div>
+            <div class="form-group">
+                <label for="AGE">AGE (proportion of owner-occupied units built prior to 1940):</label>
+                <input type="text" class="form-control" name="AGE" required>
+            </div>
+            <div class="form-group">
+                <label for="DIS">DIS (weighted distances to five Boston employment centres):</label>
+                <input type="text" class="form-control" name="DIS" required>
+            </div>
+            <div class="form-group">
+                <label for="RAD">RAD (index of accessibility to radial highways):</label>
+                <input type="text" class="form-control" name="RAD" required>
+            </div>
+            <div class="form-group">
+                <label for="TAX">TAX (full-value property-tax rate per $10,000):</label>
+                <input type="text" class="form-control" name="TAX" required>
+            </div>
+            <div class="form-group">
+                <label for="PTRATIO">PTRATIO (pupil-teacher ratio by town):</label>
+                <input type="text" class="form-control" name="PTRATIO" required>
+            </div>
+            <div class="form-group">
+                <label for="B">B (1000(Bk - 0.63)^2 where Bk is the proportion of blacks by town):</label>
+                <input type="text" class="form-control" name="B" required>
+            </div>
+            <div class="form-group">
+                <label for="LSTAT">LSTAT (% lower status of the population):</label>
+                <input type="text" class="form-control" name="LSTAT" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Predict</button>
+        </form>
+
+        {% if prediction_text %}
+        <div class="prediction-result">{{ prediction_text }}</div>
+        {% endif %}
     </div>
 </body>
 </html>

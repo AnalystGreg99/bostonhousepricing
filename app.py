@@ -27,16 +27,41 @@ def predict_api():
     print(output[0])
     return jsonify(output[0])
 
-@app.route('/predict',methods=['POST'])
+
+
+@app.route('/predict', methods=['POST'])
 def predict():
-    data=[float(x) for x in request.form.values()]
-    final_input=scalar.transform(np.array(data).reshape(1,-1))
-    print(final_input)
-    output=regmodel.predict(final_input)[0]
-    return render_template("home.html",prediction_text="The House price prediction is {}".format(output))
+    """Predict house price based on input data from form."""
+    try:
+        # Get the input values from the form
+        data = [
+            float(request.form['CRIM']),
+            float(request.form['ZN']),
+            float(request.form['INDUS']),
+            float(request.form['CHAS']),
+            float(request.form['NOX']),
+            float(request.form['RM']),
+            float(request.form['AGE']),
+            float(request.form['DIS']),
+            float(request.form['RAD']),
+            float(request.form['TAX']),
+            float(request.form['PTRATIO']),
+            float(request.form['B']),
+            float(request.form['LSTAT'])
+        ]
 
+        # Scale the input data
+        final_input = scalar.transform(np.array(data).reshape(1, -1))
 
+        # Make the prediction
+        output = regmodel.predict(final_input)[0]
 
-if __name__=="__main__":
+        # Render the template with the prediction
+        return render_template('home.html', prediction_text=f"The predicted house price is: ${output:.2f}")
+    except Exception as e:
+        # Handle any errors during prediction
+        return render_template('home.html', prediction_text=f"Error: {str(e)}")
+
+if __name__ == '__main__':
     app.run(debug=True)
-   
+
